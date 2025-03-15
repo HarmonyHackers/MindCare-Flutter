@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import '../models/mood.dart';
+import 'package:mind_care/models/mood.dart';
 
 class Constants {
   static const List<String> featureNames = [
@@ -9,18 +8,19 @@ class Constants {
     'Meditation'
   ];
 
-  static const List<IconData> featureIcons = [
-    Icons.chat_bubble_outline,
-    Icons.people_outline,
-    Icons.timeline,
-    Icons.volunteer_activism
+  static const List<String> featureImages = [
+    // Image paths
+    'assets/images/chat-rounded.png',
+    'assets/images/people-community.png',
+    'assets/images/map-marker-path.png',
+    'assets/images/hands-praying.png',
   ];
 
   static final List<Mood> moods = [
-    Mood(name: 'Stressed', icon: Icons.waves),
-    Mood(name: 'Sad', icon: Icons.sentiment_dissatisfied),
-    Mood(name: 'Neutral', icon: Icons.sentiment_neutral),
-    Mood(name: 'Good', icon: Icons.sentiment_satisfied),
-    Mood(name: 'Great', icon: Icons.sentiment_very_satisfied),
+    Mood(name: 'Stressed', imagePath: 'assets/images/Mood_1.png'),
+    Mood(name: 'Sad', imagePath: 'assets/images/Mood_2.png'),
+    Mood(name: 'Neutral', imagePath: 'assets/images/Mood_3.png'),
+    Mood(name: 'Good', imagePath: 'assets/images/Mood_4.png'),
+    Mood(name: 'Great', imagePath: 'assets/images/Mood_5.png'),
   ];
 }
