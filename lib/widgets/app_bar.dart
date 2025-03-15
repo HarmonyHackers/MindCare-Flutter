@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../config/colors.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
+  const CustomAppBar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(60);
@@ -11,38 +11,33 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.transparent,
+      scrolledUnderElevation: 0,
       elevation: 0,
-      leading: IconButton(
-        icon: Icon(Icons.menu, color: AppColors.primary),
-        onPressed: () {},
-      ),
-      centerTitle: true,
-      title: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: AppColors.banner,
-          borderRadius: BorderRadius.circular(24),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 4,
-              offset: const Offset(2, 2),
-            ),
-          ],
-        ),
-        child: const Text(
-          "Be Mindful",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic,
+      leading: GestureDetector(
+        onTap: () {},
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Image.asset(
+            "assets/images/menu.png",
+            height: 4.h,
           ),
         ),
       ),
+      centerTitle: true,
+      title: Image.asset(
+        "assets/images/app_name.png",
+        height: 6.h,
+      ),
       actions: [
-        IconButton(
-          icon: Icon(Icons.notifications_none, color: AppColors.primary),
-          onPressed: () {},
+        GestureDetector(
+          onTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: Image.asset(
+              "assets/images/bell-notification-outline.png",
+              height: 4.h,
+            ),
+          ),
         ),
       ],
     );

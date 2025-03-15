@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
 
 class AppTheme {
@@ -6,18 +7,18 @@ class AppTheme {
     primaryColor: AppColors.primary,
     scaffoldBackgroundColor: AppColors.background,
     fontFamily: 'Poppins',
-    textTheme: const TextTheme(
-      displayLarge: TextStyle(
+    textTheme: TextTheme(
+      displayLarge: GoogleFonts.kodchasan(
         fontSize: 28,
         fontWeight: FontWeight.bold,
         color: AppColors.primary,
       ),
-      displayMedium: TextStyle(
+      displayMedium: GoogleFonts.kodchasan(
         fontSize: 24,
         fontWeight: FontWeight.bold,
         color: AppColors.primary,
       ),
-      bodyLarge: TextStyle(
+      bodyLarge: GoogleFonts.kodchasan(
         fontSize: 16,
         color: AppColors.primary,
       ),

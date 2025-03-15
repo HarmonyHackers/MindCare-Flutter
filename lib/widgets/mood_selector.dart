@@ -30,16 +30,17 @@ class _MoodSelectorState extends State<MoodSelector> {
               shape: BoxShape.circle,
               border: Border.all(
                 color: AppColors.primary,
-                width: 2,
+                width: 5,
               ),
               color: selectedIndex == index
                   ? AppColors.moodYellow
                   : Colors.transparent,
             ),
-            child: Icon(
-              Constants.moods[index].icon,
-              color: AppColors.primary,
-              size: 28,
+            child: Image.asset(
+              Constants.moods[index].imagePath,
+              width: 30,
+              height: 30,
+              fit: BoxFit.contain,
             ),
           ),
         ),

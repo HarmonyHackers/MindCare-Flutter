@@ -13,36 +13,32 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Let's begin healing",
-                  style: Theme.of(context).textTheme.displayLarge,
-                ),
-                const SizedBox(height: 20),
-                _buildFeatureGrid(),
-                const SizedBox(height: 30),
-                Text(
-                  "How are you feeling?",
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-                const SizedBox(height: 16),
-                const MoodSelector(),
-                const SizedBox(height: 30),
-                Text(
-                  "Daily Videos",
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-                const SizedBox(height: 16),
-                const VideoSection(),
-                const SizedBox(height: 16),
-              ],
-            ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Let's begin healing",
+                style: Theme.of(context).textTheme.displayLarge,
+              ),
+              const SizedBox(height: 20),
+              _buildFeatureGrid(),
+              Text(
+                "How are you feeling?",
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
+              const SizedBox(height: 16),
+              const MoodSelector(),
+              const SizedBox(height: 30),
+              Text(
+                "Daily Videos",
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
+              const VideoSection(),
+              const SizedBox(height: 16),
+            ],
           ),
         ),
       ),
@@ -66,12 +62,21 @@ class HomeScreen extends StatelessWidget {
         mainAxisSpacing: 16,
         childAspectRatio: 1.0,
       ),
-      itemCount: 4,
+      itemCount: Constants.featureNames.length,
       itemBuilder: (context, index) {
-        return FeatureCard(
-          name: Constants.featureNames[index],
-          icon: Constants.featureIcons[index],
-          color: cardColors[index],
+        return Container(
+          decoration: BoxDecoration(
+            border: const Border(
+              right: BorderSide(width: 10, color: AppColors.primary),
+              bottom: BorderSide(width: 10, color: AppColors.primary),
+            ),
+            borderRadius: BorderRadius.circular(35),
+          ),
+          child: FeatureCard(
+            name: Constants.featureNames[index],
+            imagePath: Constants.featureImages[index], // Use imagePath
+            color: cardColors[index],
+          ),
         );
       },
     );
