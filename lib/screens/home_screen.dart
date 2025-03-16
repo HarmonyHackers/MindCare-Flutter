@@ -59,6 +59,7 @@ class HomeScreen extends StatelessWidget {
     final List<Widget> featureScreens = [
       const ChatScreen(),
       const CommunityScreen(),
+      const SizedBox(),
       const MeditationScreen(),
     ];
 
