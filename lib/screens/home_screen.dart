@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mind_care/utils/contants.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../config/colors.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/feature_card.dart';
 import '../widgets/mood_selector.dart';
 import '../widgets/video_section.dart';
+import 'chat_screen.dart';
+import 'community_screen.dart';
+import 'meditation_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -52,6 +56,11 @@ class HomeScreen extends StatelessWidget {
       AppColors.cardRed,
       AppColors.cardLavender,
     ];
+    final List<Widget> featureScreens = [
+      const ChatScreen(),
+      const CommunityScreen(),
+      const MeditationScreen(),
+    ];
 
     return GridView.builder(
       shrinkWrap: true,
@@ -64,21 +73,47 @@ class HomeScreen extends StatelessWidget {
       ),
       itemCount: Constants.featureNames.length,
       itemBuilder: (context, index) {
-        return Container(
-          decoration: BoxDecoration(
-            border: const Border(
-              right: BorderSide(width: 10, color: AppColors.primary),
-              bottom: BorderSide(width: 10, color: AppColors.primary),
+        return GestureDetector(
+          onTap: () {
+            if (index == 2) {
+              _openGoogleMaps();
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => featureScreens[index],
+                ),
+              );
+            }
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              border: const Border(
+                right: BorderSide(width: 10, color: AppColors.primary),
+                bottom: BorderSide(width: 10, color: AppColors.primary),
+              ),
+              borderRadius: BorderRadius.circular(35),
             ),
-            borderRadius: BorderRadius.circular(35),
-          ),
-          child: FeatureCard(
-            name: Constants.featureNames[index],
-            imagePath: Constants.featureImages[index], // Use imagePath
-            color: cardColors[index],
+            child: FeatureCard(
+              name: Constants.featureNames[index],
+              imagePath: Constants.featureImages[index], // Use imagePath
+              color: cardColors[index],
+            ),
           ),
         );
       },
     );
+  }
+
+  void _openGoogleMaps() async {
+    const String googleMapsUrl =
+        "https://www.google.com/maps/search/?api=1&query=nearby+psychologists";
+
+    if (await canLaunchUrl(Uri.parse(googleMapsUrl))) {
+      await launchUrl(Uri.parse(googleMapsUrl),
+          mode: LaunchMode.externalApplication);
+    } else {
+      throw "Could not open Google Maps";
+    }
   }
 }
