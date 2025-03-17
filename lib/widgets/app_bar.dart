@@ -27,7 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       title: Image.asset(
-        "assets/images/app_name.png",
+        "assets/images/app_logo.png",
         height: 6.h,
       ),
       actions: [

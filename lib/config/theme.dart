@@ -9,17 +9,17 @@ class AppTheme {
     fontFamily: 'Poppins',
     textTheme: TextTheme(
       displayLarge: GoogleFonts.kodchasan(
-        fontSize: 28,
+        fontSize: 26,
         fontWeight: FontWeight.bold,
         color: AppColors.primary,
       ),
       displayMedium: GoogleFonts.kodchasan(
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: FontWeight.bold,
         color: AppColors.primary,
       ),
       bodyLarge: GoogleFonts.kodchasan(
-        fontSize: 16,
+        fontSize: 15,
         color: AppColors.primary,
       ),
     ),

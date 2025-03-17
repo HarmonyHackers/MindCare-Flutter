@@ -95,9 +95,11 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
-        title: Image.asset(
-          "assets/images/psycho-bot.png",
-          height: 5.h,
+        title: Center(
+          child: Image.asset(
+            "assets/images/psycho-bot.png",
+            height: 5.h,
+          ),
         ),
         actions: [
           IconButton(
