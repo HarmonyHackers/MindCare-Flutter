@@ -10,7 +10,7 @@ class MeditationScreen extends StatelessWidget {
         title: const Text('Meditation'),
       ),
       body: const Center(
-        child: Text('Welcome to your meditation app!'),
+        child: Text('Under Working...'),
       ),
     );
   }
