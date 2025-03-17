@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:mind_care/utils/api_endpoint_strings.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../config/colors.dart';
-
-const String chatbotApiUrl = "http://0.0.0.0:8000/send_message";
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -20,9 +19,6 @@ class _ChatScreenState extends State<ChatScreen> {
   final List<Map<String, String>> _messages = [];
   bool _isLoading = false;
   final ScrollController _scrollController = ScrollController();
-
-  // Add animation controller for typing indicator
-  late AnimationController _typingIndicatorController;
 
   @override
   void initState() {
@@ -76,7 +72,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<String> _getChatbotResponse(String userMessage) async {
     try {
       final response = await http.post(
-        Uri.parse(chatbotApiUrl),
+        Uri.parse(ApiEndpointStrings.sendRequest),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({"message": userMessage}),
       );
@@ -146,7 +142,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       if (!isUser) const SizedBox(width: 2),
                       Container(
                         constraints: BoxConstraints(
-                          maxWidth: 70.w,
+                          maxWidth: 80.w,
                         ),
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
@@ -171,13 +167,37 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                           ],
                         ),
-                        child: Text(
-                          message["text"]!,
-                          style: GoogleFonts.kodchasan(
-                            color: isUser ? Colors.white : Colors.black87,
-                            fontSize: 15.sp,
-                          ),
-                        ),
+                        child: isUser
+                            ? Text(
+                                message["text"]!,
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontSize: 15.sp,
+                                ),
+                              )
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                // Use Markdown widget for bot messages
+                                child: MarkdownBody(
+                                  data: message["text"]!,
+                                  styleSheet: MarkdownStyleSheet(
+                                    p: GoogleFonts.poppins(
+                                      color: Colors.black87,
+                                      fontSize: 15.sp,
+                                    ),
+                                    strong: GoogleFonts.poppins(
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.sp,
+                                    ),
+                                    listBullet: GoogleFonts.poppins(
+                                      color: Colors.black87,
+                                      fontSize: 15.sp,
+                                    ),
+                                  ),
+                                ),
+                              ),
                       ),
                       if (isUser) const SizedBox(width: 6),
                       if (isUser)
