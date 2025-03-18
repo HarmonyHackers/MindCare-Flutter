@@ -14,11 +14,12 @@ class ChatScreen extends StatefulWidget {
   _ChatScreenState createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   final TextEditingController _messageController = TextEditingController();
   final List<Map<String, String>> _messages = [];
   bool _isLoading = false;
   final ScrollController _scrollController = ScrollController();
+  late AnimationController _loadingAnimationController;
 
   @override
   void initState() {
@@ -28,10 +29,15 @@ class _ChatScreenState extends State<ChatScreen> {
       "sender": "bot",
       "text": "Hi there! I'm PsychoBot. How can I help you today?"
     });
+    _loadingAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    )..repeat();
   }
 
   @override
   void dispose() {
+    _loadingAnimationController.dispose();
     _scrollController.dispose();
     super.dispose();
   }
@@ -262,46 +268,43 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _messageController,
-                      decoration: InputDecoration(
-                        hintText: "Message...",
-                        hintStyle: TextStyle(color: Colors.grey.shade400),
-                        filled: true,
-                        fillColor: Colors.grey.shade100,
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 10),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                          borderSide: BorderSide.none,
-                        ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _messageController,
+                    decoration: InputDecoration(
+                      hintText: "Message...",
+                      hintStyle: TextStyle(color: Colors.grey.shade400),
+                      filled: true,
+                      fillColor: Colors.grey.shade100,
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 10),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        borderSide: BorderSide.none,
                       ),
-                      onSubmitted: (_) => _sendMessage(),
                     ),
+                    onSubmitted: (_) => _sendMessage(),
                   ),
-                  const SizedBox(width: 8),
-                  Material(
-                    color: AppColors.banner,
+                ),
+                const SizedBox(width: 8),
+                Material(
+                  color: AppColors.banner,
+                  borderRadius: BorderRadius.circular(24),
+                  child: InkWell(
                     borderRadius: BorderRadius.circular(24),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(24),
-                      onTap: _sendMessage,
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        child: const Icon(
-                          Icons.send_rounded,
-                          color: Colors.white,
-                        ),
+                    onTap: _sendMessage,
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      child: const Icon(
+                        Icons.send_rounded,
+                        color: Colors.white,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
@@ -310,18 +313,23 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget _buildPulsingDot(int index) {
-    return TweenAnimationBuilder(
-      tween: Tween<double>(begin: 0.0, end: 1.0),
-      duration: const Duration(milliseconds: 600),
-      curve: Curves.easeInOut,
-      builder: (context, double value, child) {
+    return AnimatedBuilder(
+      animation: AnimationController(
+        duration: const Duration(milliseconds: 1500),
+        vsync: this,
+      )..repeat(),
+      builder: (context, child) {
+        final offset = index * 0.2;
+        final value = (DateTime.now().millisecondsSinceEpoch / 600) % 1.0;
+        final opacity = 0.3 + ((value + offset) % 1.0) * 0.7;
+
         return Opacity(
-          opacity: 0.2 + ((index * 0.2 + value) % 1.0) * 0.8,
+          opacity: opacity,
           child: Container(
             width: 8,
             height: 8,
             decoration: const BoxDecoration(
-              color: AppColors.cardPurple,
+              color: AppColors.banner,
               shape: BoxShape.circle,
             ),
           ),

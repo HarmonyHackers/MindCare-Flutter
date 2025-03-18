@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               _buildFeatureGrid(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 5),
               Text(
                 "How are you feeling?",
                 style: Theme.of(context).textTheme.displayMedium,
