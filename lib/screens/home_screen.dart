@@ -9,7 +9,7 @@ import '../widgets/mood_selector.dart';
 import '../widgets/video_section.dart';
 import 'chat_screen.dart';
 import 'community_screen.dart';
-import 'meditation_screen.dart';
+import 'meditation/meditation_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -22,32 +22,56 @@ class HomeScreen extends StatelessWidget {
       key: _scaffoldKey,
       appBar: CustomAppBar(scaffoldKey: _scaffoldKey),
       drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              child: Image.asset("assets/images/app_logo.png"),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProfileScreen(),
+          child: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                DrawerHeader(
+                  child: Image.asset("assets/images/app_logo.png"),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProfileScreen(),
+                      ),
+                    );
+                  },
+                  child: const ListTile(
+                    leading: Icon(Icons.person),
+                    title: Text("Profile"),
                   ),
-                );
-              },
-              child: const ListTile(
-                leading: Icon(Icons.person),
-                title: Text("Profile"),
+                ),
+                const ListTile(
+                  leading: Icon(Icons.mood),
+                  title: Text("Mood History"),
+                ),
+                const ListTile(
+                  leading: Icon(Icons.exit_to_app),
+                  title: Text("Logged Out"),
+                ),
+              ],
+            ),
+          ),
+          const Align(
+            alignment: FractionalOffset.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: Column(
+                children: <Widget>[
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.logo_dev_rounded),
+                    title: Text('Harmony Hackers'),
+                  ),
+                ],
               ),
             ),
-            const ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text("Logged Out"),
-            ),
-          ],
-        ),
-      ),
+          ),
+        ],
+      )),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
