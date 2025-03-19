@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mind_care/config/colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../screens/notification_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  const CustomAppBar({super.key, required this.scaffoldKey});
 
   @override
   Size get preferredSize => const Size.fromHeight(60);
@@ -16,12 +18,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       elevation: 0,
       leading: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          scaffoldKey.currentState?.openDrawer();
+        },
         child: Padding(
-          padding: const EdgeInsets.only(left: 15),
-          child: Image.asset(
-            "assets/images/menu.png",
-            height: 4.h,
+          padding: const EdgeInsets.only(left: 15, top: 12),
+          child: FaIcon(
+            FontAwesomeIcons.barsStaggered,
+            size: 3.2.h,
+            color: AppColors.primary,
           ),
         ),
       ),
@@ -42,9 +47,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
           child: Padding(
             padding: const EdgeInsets.only(right: 15),
-            child: Image.asset(
-              "assets/images/bell-notification-outline.png",
-              height: 4.h,
+            child: Icon(
+              Icons.notifications_outlined,
+              color: AppColors.primary,
+              size: 3.9.h,
             ),
           ),
         ),

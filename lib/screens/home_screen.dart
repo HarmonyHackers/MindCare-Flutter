@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mind_care/screens/profile_screen.dart';
 import 'package:mind_care/utils/contants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../config/colors.dart';
@@ -8,15 +9,69 @@ import '../widgets/mood_selector.dart';
 import '../widgets/video_section.dart';
 import 'chat_screen.dart';
 import 'community_screen.dart';
-import 'meditation_screen.dart';
+import 'meditation/meditation_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
+      key: _scaffoldKey,
+      appBar: CustomAppBar(scaffoldKey: _scaffoldKey),
+      drawer: Drawer(
+          child: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                DrawerHeader(
+                  child: Image.asset("assets/images/app_logo.png"),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProfileScreen(),
+                      ),
+                    );
+                  },
+                  child: const ListTile(
+                    leading: Icon(Icons.person),
+                    title: Text("Profile"),
+                  ),
+                ),
+                const ListTile(
+                  leading: Icon(Icons.mood),
+                  title: Text("Mood History"),
+                ),
+                const ListTile(
+                  leading: Icon(Icons.exit_to_app),
+                  title: Text("Logged Out"),
+                ),
+              ],
+            ),
+          ),
+          const Align(
+            alignment: FractionalOffset.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: Column(
+                children: <Widget>[
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.logo_dev_rounded),
+                    title: Text('Harmony Hackers'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      )),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -29,7 +84,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               _buildFeatureGrid(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 5),
               Text(
                 "How are you feeling?",
                 style: Theme.of(context).textTheme.displayMedium,

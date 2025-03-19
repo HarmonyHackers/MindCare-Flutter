@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           title: 'Mind Care',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
-          home: const HomeScreen(),
+          home: HomeScreen(),
         );
       },
     );
