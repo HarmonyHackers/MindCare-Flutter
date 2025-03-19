@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../config/colors.dart';
+
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
 
@@ -23,9 +25,10 @@ class NotificationScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            Image.asset(
-              "assets/images/bell-notification-outline.png",
-              height: 6.h,
+            Icon(
+              Icons.notifications_outlined,
+              color: AppColors.primary,
+              size: 6.h,
             ),
             const SizedBox(height: 16),
             Text(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mind_care/config/colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../screens/notification_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -18,10 +19,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: GestureDetector(
         onTap: () {},
         child: Padding(
-          padding: const EdgeInsets.only(left: 15),
-          child: Image.asset(
-            "assets/images/menu.png",
-            height: 4.h,
+          padding: const EdgeInsets.only(left: 15, top: 12),
+          child: FaIcon(
+            FontAwesomeIcons.barsStaggered,
+            size: 3.2.h,
+            color: AppColors.primary,
           ),
         ),
       ),
@@ -42,9 +44,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
           child: Padding(
             padding: const EdgeInsets.only(right: 15),
-            child: Image.asset(
-              "assets/images/bell-notification-outline.png",
-              height: 4.h,
+            child: Icon(
+              Icons.notifications_outlined,
+              color: AppColors.primary,
+              size: 3.9.h,
             ),
           ),
         ),
