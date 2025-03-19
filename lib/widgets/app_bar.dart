@@ -5,7 +5,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../screens/notification_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  const CustomAppBar({super.key, required this.scaffoldKey});
 
   @override
   Size get preferredSize => const Size.fromHeight(60);
@@ -17,7 +18,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       elevation: 0,
       leading: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          scaffoldKey.currentState?.openDrawer();
+        },
         child: Padding(
           padding: const EdgeInsets.only(left: 15, top: 12),
           child: FaIcon(

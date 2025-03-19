@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mind_care/screens/profile_screen.dart';
 import 'package:mind_care/utils/contants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../config/colors.dart';
@@ -11,12 +12,42 @@ import 'community_screen.dart';
 import 'meditation_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
+      key: _scaffoldKey,
+      appBar: CustomAppBar(scaffoldKey: _scaffoldKey),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              child: Image.asset("assets/images/app_logo.png"),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
+              },
+              child: const ListTile(
+                leading: Icon(Icons.person),
+                title: Text("Profile"),
+              ),
+            ),
+            const ListTile(
+              leading: Icon(Icons.exit_to_app),
+              title: Text("Logged Out"),
+            ),
+          ],
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
