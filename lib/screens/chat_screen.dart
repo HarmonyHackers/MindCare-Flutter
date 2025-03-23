@@ -27,7 +27,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     // Welcome message when the chat opens
     _messages.add({
       "sender": "bot",
-      "text": "Hi there! I'm PsychoBot. How can I help you today?"
+      "text": "Hi there! I'm Aether. How can I help you today?"
     });
     _loadingAnimationController = AnimationController(
       duration: const Duration(milliseconds: 1500),
@@ -103,7 +103,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         scrolledUnderElevation: 0,
         title: Center(
           child: Image.asset(
-            "assets/images/psycho-bot.png",
+            "assets/images/aether.png",
             height: 5.h,
           ),
         ),
@@ -115,7 +115,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                 _messages.clear();
                 _messages.add({
                   "sender": "bot",
-                  "text": "Hi there! I'm PsychoBot. How can I help you today?"
+                  "text": "Hi there! I'm Aether. How can I help you today?"
                 });
               });
             },
