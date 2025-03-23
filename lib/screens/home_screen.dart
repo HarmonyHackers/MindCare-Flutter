@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mind_care/screens/profile_screen.dart';
 import 'package:mind_care/utils/contants.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../blocs/auth/auth_bloc.dart';
+import '../blocs/auth/auth_event.dart';
+import '../blocs/auth/auth_state.dart';
 import '../config/colors.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/feature_card.dart';
 import '../widgets/mood_selector.dart';
 import '../widgets/video_section.dart';
+import 'auth/login_screen.dart';
 import 'chat_screen.dart';
 import 'community_screen.dart';
 import 'meditation/meditation_screen.dart';
@@ -21,57 +26,75 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: CustomAppBar(scaffoldKey: _scaffoldKey),
-      drawer: Drawer(
+      drawer: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is Unauthenticated) {
+            //! Navigate to login screen when logged out
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
+              (route) => false, //! This clears the navigation stack
+            );
+          }
+        },
+        child: Drawer(
           child: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              children: [
-                DrawerHeader(
-                  child: Image.asset("assets/images/app_logo.png"),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ProfileScreen(),
+            children: [
+              Expanded(
+                child: ListView(
+                  children: [
+                    DrawerHeader(
+                      child: Image.asset("assets/images/app_logo.png"),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ProfileScreen(),
+                          ),
+                        );
+                      },
+                      child: const ListTile(
+                        leading: Icon(Icons.person),
+                        title: Text("Profile"),
                       ),
-                    );
-                  },
-                  child: const ListTile(
-                    leading: Icon(Icons.person),
-                    title: Text("Profile"),
-                  ),
+                    ),
+                    const ListTile(
+                      leading: Icon(Icons.mood),
+                      title: Text("Mood History"),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        //! Show a confirmation dialog
+                        _showLogoutConfirmationDialog(context);
+                      },
+                      child: const ListTile(
+                        leading: Icon(Icons.exit_to_app),
+                        title: Text("Log Out"),
+                      ),
+                    ),
+                  ],
                 ),
-                const ListTile(
-                  leading: Icon(Icons.mood),
-                  title: Text("Mood History"),
-                ),
-                const ListTile(
-                  leading: Icon(Icons.exit_to_app),
-                  title: Text("Logged Out"),
-                ),
-              ],
-            ),
-          ),
-          const Align(
-            alignment: FractionalOffset.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 20),
-              child: Column(
-                children: <Widget>[
-                  Divider(),
-                  ListTile(
-                    leading: Icon(Icons.logo_dev_rounded),
-                    title: Text('Harmony Hackers'),
-                  ),
-                ],
               ),
-            ),
+              const Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: Column(
+                    children: <Widget>[
+                      Divider(),
+                      ListTile(
+                        leading: Icon(Icons.logo_dev_rounded),
+                        title: Text('Harmony Hackers'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      )),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -102,6 +125,34 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showLogoutConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text("Log Out"),
+          content: const Text("Are you sure you want to log out?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop(); //! Close the dialog
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop(); //! Close the dialog
+                //! Dispatch the SignOut event to the AuthBloc
+                context.read<AuthBloc>().add(SignOut());
+              },
+              child: const Text("Log Out", style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -153,7 +204,7 @@ class HomeScreen extends StatelessWidget {
             ),
             child: FeatureCard(
               name: Constants.featureNames[index],
-              imagePath: Constants.featureImages[index], // Use imagePath
+              imagePath: Constants.featureImages[index],
               color: cardColors[index],
             ),
           ),

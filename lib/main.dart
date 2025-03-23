@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'blocs/auth/auth_bloc.dart';
+import 'blocs/auth/auth_event.dart';
 import 'config/theme.dart';
-import 'screens/home_screen.dart';
+import 'screens/auth/auth_wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase
+  await Firebase.initializeApp();
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.manual,
@@ -19,15 +27,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveSizer(
-      builder: (context, orientation, screenType) {
-        return MaterialApp(
-          title: 'Mind Care',
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.lightTheme,
-          home: HomeScreen(),
-        );
-      },
+    return BlocProvider(
+      create: (context) => AuthBloc()..add(AuthInitialize()),
+      child: ResponsiveSizer(
+        builder: (context, orientation, screenType) {
+          return MaterialApp(
+            title: 'Mind Care',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            home: const AuthWrapper(),
+          );
+        },
+      ),
     );
   }
 }
