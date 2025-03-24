@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class MeditationTimerScreen extends StatefulWidget {
   final int durationInMinutes;
@@ -21,10 +22,36 @@ class _MeditationTimerScreenState extends State<MeditationTimerScreen> {
     remainingSeconds = widget.durationInMinutes * 60;
   }
 
+  Future<void> startMining() async {
+    //! For android emulators -> http://10.0.2.2:5000/start
+    //! iOS Simulator ->	http://127.0.0.1:5000/start
+    var url = Uri.parse('http://10.0.2.2:5000/start');
+    final response = await http.post(url);
+    if (response.statusCode == 200) {
+      debugPrint('Mining started');
+    } else {
+      debugPrint('Failed to start mining');
+    }
+  }
+
+  Future<void> stopMining() async {
+    //! For android emulators -> http://10.0.2.2:5000/stop
+    //! iOS Simulator ->	http://127.0.0.1:5000/stop
+    var url = Uri.parse('http://10.0.2.2:5000/stop');
+    final response = await http.post(url);
+    if (response.statusCode == 200) {
+      debugPrint('Mining stopped');
+    } else {
+      debugPrint('Failed to stop mining');
+    }
+  }
+
   void startTimer() {
     setState(() {
       isActive = true;
     });
+
+    startMining();
 
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
@@ -33,6 +60,7 @@ class _MeditationTimerScreenState extends State<MeditationTimerScreen> {
         } else {
           timer.cancel();
           isActive = false;
+          stopMining();
         }
       });
     });
@@ -51,6 +79,7 @@ class _MeditationTimerScreenState extends State<MeditationTimerScreen> {
       isActive = false;
       remainingSeconds = widget.durationInMinutes * 60;
     });
+    stopMining();
   }
 
   String formatTime(int totalSeconds) {
@@ -62,6 +91,7 @@ class _MeditationTimerScreenState extends State<MeditationTimerScreen> {
   @override
   void dispose() {
     timer?.cancel();
+    stopMining();
     super.dispose();
   }
 

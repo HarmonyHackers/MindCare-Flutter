@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mind_care/config/colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'meditation_timer_screen.dart';
+import 'package:http/http.dart' as http;
 
 class MeditationScreen extends StatefulWidget {
   const MeditationScreen({super.key});
@@ -57,6 +58,26 @@ class _MeditationScreenState extends State<MeditationScreen> {
             MeditationTimerScreen(durationInMinutes: duration),
       ),
     );
+  }
+
+  Future<void> startMining() async {
+    var url = Uri.parse('http://10.0.2.2:5000/start');
+    final response = await http.post(url);
+    if (response.statusCode == 200) {
+      debugPrint('Mining started');
+    } else {
+      debugPrint('Failed to start mining');
+    }
+  }
+
+  Future<void> stopMining() async {
+    var url = Uri.parse('http://10.0.2.2:5000/stop');
+    final response = await http.post(url);
+    if (response.statusCode == 200) {
+      debugPrint('Mining stopped');
+    } else {
+      debugPrint('Failed to stop mining');
+    }
   }
 
   @override
@@ -128,9 +149,17 @@ class _MeditationScreenState extends State<MeditationScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton(
-                            onPressed: isPomodoroActive
-                                ? resetPomodoro
-                                : startPomodoro,
+                            onPressed: () {
+                              if (!isPomodoroActive) {
+                                //! When starting the timer, call the mining start endpoint
+                                startMining();
+                                startPomodoro();
+                              } else {
+                                //! Optionally pause timer and/or stop mining if needed
+                                stopMining();
+                                resetPomodoro();
+                              }
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF581C87),
                               padding: const EdgeInsets.symmetric(
