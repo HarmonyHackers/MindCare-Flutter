@@ -71,12 +71,6 @@ class _MeditationScreenState extends State<MeditationScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         scrolledUnderElevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
         title: Image.asset(
           "assets/images/meditation.png",
           height: 6.h,

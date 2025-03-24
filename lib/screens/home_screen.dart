@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mind_care/screens/daily_videos.dart';
 import 'package:mind_care/screens/profile_screen.dart';
 import 'package:mind_care/utils/contants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -107,7 +108,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               _buildFeatureGrid(),
-              const SizedBox(height: 5),
+              const SizedBox(height: 20),
               Text(
                 "How are you feeling?",
                 style: Theme.of(context).textTheme.displayMedium,
@@ -119,7 +120,17 @@ class HomeScreen extends StatelessWidget {
                 "Daily Videos",
                 style: Theme.of(context).textTheme.displayMedium,
               ),
-              const VideoSection(),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DailyVideos(),
+                    ),
+                  );
+                },
+                child: const VideoSection(),
+              ),
               const SizedBox(height: 16),
             ],
           ),
