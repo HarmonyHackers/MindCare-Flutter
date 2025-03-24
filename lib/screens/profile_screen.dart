@@ -114,9 +114,21 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildProfileInfo(BuildContext context) {
     final List<Map<String, dynamic>> items = [
-      {'icon': Icons.person, 'title': 'Personal Information', 'onTap': () {}},
-      {'icon': Icons.settings, 'title': 'Settings', 'onTap': () {}},
-      {'icon': Icons.help_outline, 'title': 'Help & Support', 'onTap': () {}},
+      {
+        'icon': Icons.monetization_on_sharp,
+        'title': 'Mining Dashboard',
+        'onTap': () {}
+      },
+      {
+        'icon': Icons.attach_money,
+        'title': 'Earnings',
+        'onTap': () {},
+      },
+      {
+        'icon': Icons.help_outline,
+        'title': 'Help & Support',
+        'onTap': () {},
+      },
       {
         'icon': Icons.privacy_tip_outlined,
         'title': 'Privacy Policy',
