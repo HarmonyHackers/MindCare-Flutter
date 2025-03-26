@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mind_care/utils/contants.dart';
 import '../config/colors.dart';
+import '../utils/custom_message_notifier.dart';
 
 class MoodSelector extends StatefulWidget {
   const MoodSelector({super.key});
@@ -22,6 +23,11 @@ class _MoodSelectorState extends State<MoodSelector> {
           onTap: () {
             setState(() {
               selectedIndex = index;
+              CustomMessageNotifier.showSnackBar(
+                context,
+                'Mood saved successfully!',
+                onSuccess: true,
+              );
             });
           },
           child: Container(

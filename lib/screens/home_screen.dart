@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mind_care/screens/daily_videos.dart';
-import 'package:mind_care/screens/profile_screen.dart';
+import 'package:mind_care/screens/profile/profile_screen.dart';
 import 'package:mind_care/utils/contants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../blocs/auth/auth_bloc.dart';
@@ -60,10 +60,10 @@ class HomeScreen extends StatelessWidget {
                         title: Text("Profile"),
                       ),
                     ),
-                    const ListTile(
-                      leading: Icon(Icons.mood),
-                      title: Text("Mood History"),
-                    ),
+                    // const ListTile(
+                    //   leading: Icon(Icons.mood),
+                    //   title: Text("Mood History"),
+                    // ),
                     GestureDetector(
                       onTap: () {
                         //! Show a confirmation dialog

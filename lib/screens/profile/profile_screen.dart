@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../blocs/auth/auth_bloc.dart';
-import '../blocs/auth/auth_event.dart';
-import '../blocs/auth/auth_state.dart';
-import '../config/colors.dart';
-import '../models/user_model.dart';
-import 'auth/login_screen.dart';
+import 'package:mind_care/screens/profile/mining_dashboard.dart';
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_event.dart';
+import '../../blocs/auth/auth_state.dart';
+import '../../config/colors.dart';
+import '../../models/user_model.dart';
+import '../auth/login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -117,13 +118,20 @@ class ProfileScreen extends StatelessWidget {
       {
         'icon': Icons.monetization_on_sharp,
         'title': 'Mining Dashboard',
-        'onTap': () {}
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MiningDashboard(),
+            ),
+          );
+        }
       },
-      {
-        'icon': Icons.attach_money,
-        'title': 'Earnings',
-        'onTap': () {},
-      },
+      // {
+      //   'icon': Icons.attach_money,
+      //   'title': 'Earnings',
+      //   'onTap': () {},
+      // },
       {
         'icon': Icons.help_outline,
         'title': 'Help & Support',
