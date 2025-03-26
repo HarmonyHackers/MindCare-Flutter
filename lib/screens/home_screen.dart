@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mind_care/screens/daily_videos.dart';
+import 'package:mind_care/screens/profile/mining_dashboard.dart';
 import 'package:mind_care/screens/profile/profile_screen.dart';
 import 'package:mind_care/utils/contants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -60,10 +61,20 @@ class HomeScreen extends StatelessWidget {
                         title: Text("Profile"),
                       ),
                     ),
-                    // const ListTile(
-                    //   leading: Icon(Icons.mood),
-                    //   title: Text("Mood History"),
-                    // ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MiningDashboard(),
+                          ),
+                        );
+                      },
+                      child: const ListTile(
+                        leading: Icon(Icons.dashboard),
+                        title: Text("Mining Dashboard"),
+                      ),
+                    ),
                     GestureDetector(
                       onTap: () {
                         //! Show a confirmation dialog
