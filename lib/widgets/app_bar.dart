@@ -6,7 +6,7 @@ import 'package:mind_care/blocs/auth/auth_state.dart';
 import 'package:mind_care/config/colors.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../models/user_model.dart';
-import '../screens/profile_screen.dart';
+import '../screens/profile/profile_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
