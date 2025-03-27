@@ -32,9 +32,9 @@ class _PieData {
 
 // ignore: library_private_types_in_public_api
 final List<_PieData> pieData = [
-  _PieData('Category A', 30, '30%'),
-  _PieData('Category B', 20, '20%'),
-  _PieData('Category C', 15, '15%'),
-  _PieData('Category D', 10, '10%'),
-  _PieData('Category E', 25, '25%'),
+  _PieData('GPU Mining', 30, '30%'),
+  _PieData('CPU Mining', 20, '20%'),
+  _PieData('ASIC Mining', 15, '15%'),
+  _PieData('Cloud Mining', 10, '10%'),
+  _PieData('Solo Mining', 25, '25%'),
 ];
