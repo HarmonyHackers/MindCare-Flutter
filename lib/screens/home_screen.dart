@@ -14,7 +14,7 @@ import '../widgets/mood_selector.dart';
 import '../widgets/video_section.dart';
 import 'auth/login_screen.dart';
 import 'chat_screen.dart';
-import 'community_screen.dart';
+import 'expert_booking_screen.dart';
 import 'meditation/meditation_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -176,7 +176,7 @@ class HomeScreen extends StatelessWidget {
     ];
     final List<Widget> featureScreens = [
       const ChatScreen(),
-      const CommunityScreen(),
+      const ExpertBookingScreen(),
       const SizedBox(),
       const MeditationScreen(),
     ];

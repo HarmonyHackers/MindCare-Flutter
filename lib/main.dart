@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mind_care/screens/splash_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'blocs/auth/auth_bloc.dart';
 import 'blocs/auth/auth_event.dart';
 import 'config/theme.dart';
-import 'screens/auth/auth_wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             title: 'Mind Care',
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
-            home: const AuthWrapper(),
+            home: const SplashScreen(),
           );
         },
       ),
