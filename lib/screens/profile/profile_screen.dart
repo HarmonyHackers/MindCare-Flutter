@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mind_care/screens/fund_transparency/fund_tranparency_page.dart';
 import 'package:mind_care/screens/profile/mining_dashboard.dart';
 import 'package:mind_care/utils/custom_message_notifier.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -137,7 +138,7 @@ class ProfileScreen extends StatelessWidget {
 
     final List<Map<String, dynamic>> items = [
       {
-        'icon': Icons.monetization_on_sharp,
+        'icon': Icons.dashboard,
         'title': 'Mining Dashboard',
         'onTap': () {
           Navigator.push(
@@ -148,11 +149,18 @@ class ProfileScreen extends StatelessWidget {
           );
         }
       },
-      // {
-      //   'icon': Icons.attach_money,
-      //   'title': 'Earnings',
-      //   'onTap': () {},
-      // },
+      {
+        'icon': Icons.currency_rupee,
+        'title': 'Fund Tranparency',
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const FundTransparencyPage(),
+            ),
+          );
+        },
+      },
       {
         'icon': Icons.help_outline,
         'title': 'Help & Support',
