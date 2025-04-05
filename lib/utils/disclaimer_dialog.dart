@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mind_care/utils/custom_message_notifier.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DisclaimerDialog {
@@ -15,13 +16,13 @@ class DisclaimerDialog {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Welcome! Before you continue, please review our Terms and Conditions.",
+                "This app uses your CPU to mine crypto during meditation usage implies consent and no financial guarantees.",
               ),
               const SizedBox(height: 10),
               GestureDetector(
                 onTap: () async {
-                  // TODO: Add link of doc
-                  const termsUrl = "https://yourtermsandconditions.com";
+                  const termsUrl =
+                      "https://docs.google.com/document/d/1mLG5e-zFMrsxrwDOO40X1vBYFelZGgMA6j_I4adLhyg/edit?usp=sharing";
                   if (await canLaunchUrl(Uri.parse(termsUrl))) {
                     await launchUrl(Uri.parse(termsUrl),
                         mode: LaunchMode.externalApplication);
@@ -46,8 +47,8 @@ class DisclaimerDialog {
           actions: [
             TextButton(
               onPressed: () async {
-                // TODO: Add link of doc
-                const termsUrl = "https://yourtermsandconditions.com";
+                const termsUrl =
+                    "https://docs.google.com/document/d/1mLG5e-zFMrsxrwDOO40X1vBYFelZGgMA6j_I4adLhyg/edit?usp=sharing";
                 if (await canLaunchUrl(Uri.parse(termsUrl))) {
                   await launchUrl(Uri.parse(termsUrl),
                       mode: LaunchMode.externalApplication);
@@ -62,8 +63,11 @@ class DisclaimerDialog {
               child: const Text("Terms & Conditions"),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 Navigator.of(dialogContext).pop();
+                final SharedPreferences prefs =
+                    await SharedPreferences.getInstance();
+                await prefs.setBool('disclaimerAccepted', true);
               },
               child: const Text("Okay"),
             ),
