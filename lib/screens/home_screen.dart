@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mind_care/screens/daily_videos.dart';
 import 'package:mind_care/screens/profile/profile_screen.dart';
 import 'package:mind_care/utils/contants.dart';
+import 'package:mind_care/utils/disclaimer_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/auth/auth_event.dart';
@@ -17,10 +18,27 @@ import 'chat_screen.dart';
 import 'expert_booking_screen.dart';
 import 'meditation/meditation_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isFirstTime = true;
+
+  @override
+  void initState() {
+    super.initState();
+    if (isFirstTime) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        DisclaimerDialog.show(context);
+      });
+      isFirstTime = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
