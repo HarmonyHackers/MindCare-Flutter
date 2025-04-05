@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mind_care/screens/fund_transparency/fund_tranparency_page.dart';
 import 'package:mind_care/screens/profile/mining_dashboard.dart';
+import 'package:mind_care/utils/custom_message_notifier.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../blocs/auth/auth_event.dart';
 import '../../blocs/auth/auth_state.dart';
@@ -114,9 +117,28 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildProfileInfo(BuildContext context) {
+    void sendEmail() async {
+      final String subject = Uri.encodeComponent("Help & Support Inquiry");
+      final Uri emailLaunchUri = Uri(
+        scheme: 'mailto',
+        path: 'anishhazra108@gmail.com',
+        query: 'subject=$subject',
+      );
+
+      if (await canLaunchUrl(emailLaunchUri)) {
+        await launchUrl(emailLaunchUri);
+      } else {
+        CustomMessageNotifier.showSnackBar(
+          context,
+          "Could not launch email",
+          onError: false,
+        );
+      }
+    }
+
     final List<Map<String, dynamic>> items = [
       {
-        'icon': Icons.monetization_on_sharp,
+        'icon': Icons.dashboard,
         'title': 'Mining Dashboard',
         'onTap': () {
           Navigator.push(
@@ -127,20 +149,45 @@ class ProfileScreen extends StatelessWidget {
           );
         }
       },
-      // {
-      //   'icon': Icons.attach_money,
-      //   'title': 'Earnings',
-      //   'onTap': () {},
-      // },
+      {
+        'icon': Icons.currency_rupee,
+        'title': 'Fund Tranparency',
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const FundTransparencyPage(),
+            ),
+          );
+        },
+      },
       {
         'icon': Icons.help_outline,
         'title': 'Help & Support',
-        'onTap': () {},
+        'onTap': () {
+          sendEmail();
+        },
       },
       {
         'icon': Icons.privacy_tip_outlined,
         'title': 'Privacy Policy',
-        'onTap': () {}
+        'onTap': () async {
+          final Uri url = Uri.parse(
+              "https://docs.google.com/document/d/107309uTfzlDF0BW4LmILnCXePvxzWRPGNlB5a_5SZeQ/edit?tab=t.0");
+
+          try {
+            await launchUrl(
+              url,
+              mode: LaunchMode.inAppBrowserView,
+            );
+          } catch (e) {
+            CustomMessageNotifier.showSnackBar(
+              context,
+              "Could not launch URL: $e",
+              onError: true,
+            );
+          }
+        }
       },
     ];
 

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mind_care/config/colors.dart';
 import 'package:mind_care/widgets/resource_graph_widget.dart';
 
 class MeditationTimerScreen extends StatefulWidget {
@@ -21,6 +22,7 @@ class _MeditationTimerScreenState extends State<MeditationTimerScreen> {
   bool isActive = false;
   bool isIntervalMode = false;
   String hashrate = "0 H/s";
+  bool isDeviceUsage = false;
 
   //! Lists to store history of CPU and RAM usage
   List<double> cpuData = [];
@@ -183,6 +185,23 @@ class _MeditationTimerScreenState extends State<MeditationTimerScreen> {
           style: Theme.of(context).textTheme.displayMedium,
         ),
         elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  isDeviceUsage = !isDeviceUsage;
+                });
+              },
+              icon: const Icon(
+                Icons.bar_chart,
+                color: AppColors.primary,
+                size: 35,
+              ),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -220,15 +239,22 @@ class _MeditationTimerScreenState extends State<MeditationTimerScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 60),
-              //! Resource chart display using Syncfusion Flutter Charts
-              const Text(
-                'Device Resource Usage (%)',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              ResourceChart(cpuData: cpuData, ramData: ramData),
-              const SizedBox(height: 60),
+              isDeviceUsage
+                  ? Column(
+                      children: [
+                        const SizedBox(height: 60),
+                        //! Resource chart display using Syncfusion Flutter Charts
+                        const Text(
+                          'Device Resource Usage (%)',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 10),
+                        ResourceChart(cpuData: cpuData, ramData: ramData),
+                        const SizedBox(height: 60),
+                      ],
+                    )
+                  : const SizedBox(height: 60),
               //! Control buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
