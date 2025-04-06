@@ -6,10 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:mind_care/utils/api_endpoint_strings.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../blocs/auth/auth_bloc.dart';
-import '../blocs/auth/auth_state.dart';
-import '../config/colors.dart';
-import '../models/user_model.dart';
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_state.dart';
+import '../../config/colors.dart';
+import '../../models/user_model.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});

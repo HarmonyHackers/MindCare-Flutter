@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mind_care/screens/splash_screen.dart';
+import 'package:mind_care/blocs/booking_history/booking_history_bloc.dart';
+import 'package:mind_care/blocs/booking_history/booking_history_event.dart';
+import 'package:mind_care/screens/splash/splash_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'blocs/auth/auth_bloc.dart';
 import 'blocs/auth/auth_event.dart';
@@ -27,8 +29,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthBloc()..add(AuthInitialize()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthBloc()..add(AuthInitialize()),
+        ),
+        BlocProvider<BookingHistoryBloc>(
+          create: (context) =>
+              BookingHistoryBloc()..add(FetchBookingHistoryEvent()),
+        ),
+      ],
       child: ResponsiveSizer(
         builder: (context, orientation, screenType) {
           return MaterialApp(
