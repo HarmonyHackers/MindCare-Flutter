@@ -87,5 +87,5 @@ Mind Care brings together several innovative features:
 - Monitor your mining status and rewards right within the app.
 
 ### Contact
-For questions or support, please contact anishhazra108@gmail.com
+For questions or support, please contact mindcareaether@gmail.com
    
