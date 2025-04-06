@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:mind_care/config/colors.dart';
 import 'package:mind_care/models/cart_data_model.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class FundTransparencyPage extends StatefulWidget {
@@ -20,7 +23,11 @@ class _FundTransparencyPageState extends State<FundTransparencyPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Fund Transparency'),
+        title: Image.asset(
+          "assets/images/fund_image.png",
+          height: 6.h,
+        ),
+        centerTitle: true,
         elevation: 0,
         scrolledUnderElevation: 0,
       ),
@@ -30,7 +37,7 @@ class _FundTransparencyPageState extends State<FundTransparencyPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Month selector
+              //! Month selector
               SizedBox(
                 height: 50,
                 child: ListView.builder(
@@ -40,22 +47,41 @@ class _FundTransparencyPageState extends State<FundTransparencyPage> {
                     final isSelected = index == selectedMonthIndex;
                     return Padding(
                       padding: const EdgeInsets.only(right: 8.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: isSelected
-                              ? Theme.of(context).primaryColor
-                              : Colors.grey.shade200,
-                          foregroundColor:
-                              isSelected ? Colors.white : Colors.black87,
-                        ),
-                        onPressed: () {
+                      child: GestureDetector(
+                        onTap: () {
                           setState(() {
                             selectedMonthIndex = index;
                           });
                         },
-                        child: Text(
-                          DateFormat('MMMM yyyy')
-                              .format(transactions[index].month),
+                        child: Container(
+                          padding: const EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? const Color(0xff6885B8)
+                                : const Color(0xffCFDAED),
+                            borderRadius: BorderRadius.circular(20),
+                            border: const Border(
+                              left: BorderSide(
+                                  color: AppColors.primary, width: 3),
+                              top: BorderSide(
+                                  color: AppColors.primary, width: 3),
+                              right: BorderSide(
+                                  color: AppColors.primary, width: 6),
+                              bottom: BorderSide(
+                                  color: AppColors.primary, width: 6),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              DateFormat('MMMM yyyy')
+                                  .format(transactions[index].month),
+                              style: GoogleFonts.kodchasan(
+                                color: isSelected ? Colors.white : Colors.black,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     );
@@ -66,8 +92,13 @@ class _FundTransparencyPageState extends State<FundTransparencyPage> {
               const SizedBox(height: 24),
 
               //! Summary card
-              Card(
-                elevation: 4,
+              Container(
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 3, color: AppColors.primary),
+                  color: const Color(0xffF5F5F5),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -108,11 +139,16 @@ class _FundTransparencyPageState extends State<FundTransparencyPage> {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 10),
 
               //! Recent transactions
-              Card(
-                elevation: 4,
+              Container(
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 3, color: AppColors.primary),
+                  color: const Color(0xffF5F5F5),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -144,6 +180,7 @@ class _FundTransparencyPageState extends State<FundTransparencyPage> {
                                 color: transaction.isIncome
                                     ? Colors.green.shade700
                                     : Colors.red.shade700,
+                                fontSize: 15.sp,
                               ),
                             ),
                           );
@@ -154,11 +191,16 @@ class _FundTransparencyPageState extends State<FundTransparencyPage> {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 10),
 
               //! Income breakdown
-              Card(
-                elevation: 4,
+              Container(
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 3, color: AppColors.primary),
+                  color: const Color(0xffF5F5F5),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -223,11 +265,16 @@ class _FundTransparencyPageState extends State<FundTransparencyPage> {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 10),
 
               //! Income vs Expenses Trend
-              Card(
-                elevation: 4,
+              Container(
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 3, color: AppColors.primary),
+                  color: const Color(0xffF5F5F5),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -282,11 +329,16 @@ class _FundTransparencyPageState extends State<FundTransparencyPage> {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 10),
 
               //! Transparency statement
-              Card(
-                elevation: 4,
+              Container(
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 3, color: AppColors.primary),
+                  color: const Color(0xffF5F5F5),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -325,15 +377,19 @@ class _FundTransparencyPageState extends State<FundTransparencyPage> {
       children: [
         Text(
           title,
-          style: Theme.of(context).textTheme.bodyLarge,
+          style: GoogleFonts.kodchasan(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
         ),
         const SizedBox(height: 8),
         Text(
           value,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: color,
-                fontWeight: FontWeight.bold,
-              ),
+          style: GoogleFonts.kodchasan(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: color,
+          ),
         ),
       ],
     );
