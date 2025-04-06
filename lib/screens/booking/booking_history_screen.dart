@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:mind_care/blocs/booking_history/cancel_booking_event.dart';
 import 'package:mind_care/config/colors.dart';
 import 'package:mind_care/models/booking_model.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -29,6 +30,8 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
           "assets/images/take_help.png",
           height: 6.h,
         ),
+        elevation: 0,
+        scrolledUnderElevation: 0,
       ),
       body: BlocProvider(
         create: (context) =>
@@ -62,7 +65,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                     ),
                     SizedBox(height: 2.h),
 
-                    // Filters
+                    //! Filters
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -74,7 +77,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
 
                     SizedBox(height: 2.h),
 
-                    // Booking list
+                    //! Booking list
                     Expanded(
                       child: filteredBookings.isEmpty
                           ? _buildEmptyState()
@@ -249,12 +252,40 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
               ],
             ),
           ),
-          if (booking.status == 'Pending')
-            Container(
+          //! Cancel Booking button
+          GestureDetector(
+            onTap: () async {
+              //! Confirmation dialog
+              final shouldCancel = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Cancel Booking'),
+                  content: const Text(
+                      'Are you sure you want to cancel this booking?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: const Text('No'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      child: const Text('Yes'),
+                    ),
+                  ],
+                ),
+              );
+              if (shouldCancel == true) {
+                //! Dispatch cancel booking event
+                context
+                    .read<BookingHistoryBloc>()
+                    .add(CancelBookingEvent(booking.id));
+              }
+            },
+            child: Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: const BoxDecoration(
-                color: Color(0xff96D1BD),
+                color: AppColors.cardRed,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(16),
                   bottomRight: Radius.circular(16),
@@ -265,7 +296,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
               ),
               child: Center(
                 child: Text(
-                  'Join Consultation',
+                  'Cancel Booking',
                   style: GoogleFonts.kodchasan(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -274,6 +305,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                 ),
               ),
             ),
+          ),
         ],
       ),
     );

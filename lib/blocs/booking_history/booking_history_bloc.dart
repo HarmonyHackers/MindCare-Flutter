@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mind_care/blocs/booking_history/booking_history_event.dart';
 import 'package:mind_care/blocs/booking_history/booking_history_state.dart';
+import 'package:mind_care/blocs/booking_history/cancel_booking_event.dart';
 import 'package:mind_care/models/booking_model.dart';
 
 class BookingHistoryBloc
@@ -12,6 +13,7 @@ class BookingHistoryBloc
 
   BookingHistoryBloc() : super(BookingHistoryInitial()) {
     on<FetchBookingHistoryEvent>(_onFetchBookingHistory);
+    on<CancelBookingEvent>(_onCancelBooking);
   }
 
   void _onFetchBookingHistory(
@@ -21,20 +23,20 @@ class BookingHistoryBloc
     try {
       emit(BookingHistoryLoading());
 
-      // Get current user
+      //! Get current user
       final User? currentUser = _auth.currentUser;
       if (currentUser == null) {
         emit(BookingHistoryError('User not authenticated'));
         return;
       }
 
-      // Fetch bookings from Firestore
+      //! Fetch bookings from Firestore
       final QuerySnapshot querySnapshot = await _firestore
           .collection('bookings')
           .where('userId', isEqualTo: currentUser.uid)
           .get();
 
-      // Convert to list of BookingModel
+      //! Convert to list of BookingModel
       final List<BookingModel> bookings = querySnapshot.docs.map((doc) {
         final data = doc.data() as Map<String, dynamic>;
         return BookingModel(
@@ -57,6 +59,23 @@ class BookingHistoryBloc
       bookings.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
       emit(BookingHistoryLoaded(bookings));
+    } catch (e) {
+      emit(BookingHistoryError(e.toString()));
+    }
+  }
+
+  void _onCancelBooking(
+    CancelBookingEvent event,
+    Emitter<BookingHistoryState> emit,
+  ) async {
+    try {
+      //! Update the booking's status to "Cancelled" in Firestore
+      await _firestore
+          .collection('bookings')
+          .doc(event.bookingId)
+          .update({'status': 'Cancelled'});
+
+      add(FetchBookingHistoryEvent());
     } catch (e) {
       emit(BookingHistoryError(e.toString()));
     }
