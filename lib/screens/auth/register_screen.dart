@@ -102,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _isPasswordVisible
+                            !_isPasswordVisible
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                           ),
@@ -135,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _isConfirmPasswordVisible
+                            !_isConfirmPasswordVisible
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                           ),

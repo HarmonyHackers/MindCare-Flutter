@@ -121,7 +121,7 @@ class ProfileScreen extends StatelessWidget {
       final String subject = Uri.encodeComponent("Help & Support Inquiry");
       final Uri emailLaunchUri = Uri(
         scheme: 'mailto',
-        path: 'anishhazra108@gmail.com',
+        path: 'mindcareaether@gmail.com',
         query: 'subject=$subject',
       );
 
