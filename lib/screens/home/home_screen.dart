@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mind_care/screens/daily_videos.dart';
+import 'package:mind_care/screens/videos/daily_videos.dart';
 import 'package:mind_care/screens/profile/profile_screen.dart';
 import 'package:mind_care/utils/contants.dart';
 import 'package:mind_care/utils/disclaimer_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../blocs/auth/auth_bloc.dart';
-import '../blocs/auth/auth_event.dart';
-import '../blocs/auth/auth_state.dart';
-import '../config/colors.dart';
-import '../widgets/app_bar.dart';
-import '../widgets/feature_card.dart';
-import '../widgets/mood_selector.dart';
-import '../widgets/video_section.dart';
-import 'auth/login_screen.dart';
-import 'chat_screen.dart';
-import 'expert_booking_screen.dart';
-import 'meditation/meditation_screen.dart';
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_event.dart';
+import '../../blocs/auth/auth_state.dart';
+import '../../config/colors.dart';
+import '../../widgets/app_bar.dart';
+import '../../widgets/feature_card.dart';
+import '../../widgets/mood_selector.dart';
+import '../../widgets/video_section.dart';
+import '../auth/login_screen.dart';
+import '../chat_bot/chat_screen.dart';
+import '../booking/expert_booking_screen.dart';
+import '../meditation/meditation_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

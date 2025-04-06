@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../blocs/auth/auth_state.dart';
-import '../home_screen.dart';
+import '../home/home_screen.dart';
 import 'login_screen.dart';
 
 class AuthWrapper extends StatelessWidget {
@@ -19,7 +19,7 @@ class AuthWrapper extends StatelessWidget {
             ),
           );
         } else if (state is Authenticated) {
-          return HomeScreen();
+          return const HomeScreen();
         } else {
           return const LoginScreen();
         }

@@ -4,7 +4,7 @@ import 'package:mind_care/utils/daily_sample_videos.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:intl/intl.dart';
-import '../models/video_data_model.dart';
+import '../../models/video_data_model.dart';
 
 class DailyVideos extends StatefulWidget {
   const DailyVideos({super.key});

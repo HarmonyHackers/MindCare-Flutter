@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mind_care/screens/booking/booking_history_screen.dart';
 import 'package:mind_care/screens/fund_transparency/fund_tranparency_page.dart';
 import 'package:mind_care/screens/profile/mining_dashboard.dart';
 import 'package:mind_care/utils/custom_message_notifier.dart';
@@ -137,6 +138,18 @@ class ProfileScreen extends StatelessWidget {
     }
 
     final List<Map<String, dynamic>> items = [
+      {
+        'icon': Icons.bookmark_added_sharp,
+        'title': 'Booking History',
+        'onTap': () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const BookingHistoryScreen(),
+            ),
+          );
+        }
+      },
       {
         'icon': Icons.dashboard,
         'title': 'Mining Dashboard',
