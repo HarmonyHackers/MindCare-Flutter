@@ -124,26 +124,42 @@ class _ExpertBookingScreenState extends State<ExpertBookingScreen> {
                           children: [
                             Text(
                               'Dr. Uroos Fatima',
-                              style: Theme.of(context).textTheme.displayMedium,
+                              style: GoogleFonts.kodchasan(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 17.sp,
+                              ),
                             ),
                             const SizedBox(height: 8),
                             Text(
                               'Psychiatrist',
-                              style: Theme.of(context).textTheme.displayMedium,
+                              style: GoogleFonts.kodchasan(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 17.sp,
+                              ),
                             ),
                             const SizedBox(height: 8),
                             Text(
                               'MBBS, MD',
-                              style: Theme.of(context).textTheme.displayMedium,
+                              style: GoogleFonts.kodchasan(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16.sp,
+                              ),
                             ),
                             const Spacer(),
-                            const Divider(
+                            Divider(
                               color: AppColors.primary,
-                              thickness: 5,
+                              thickness: 0.3.h,
                             ),
                             Text(
                               '2000 rs',
-                              style: Theme.of(context).textTheme.displayMedium,
+                              style: GoogleFonts.kodchasan(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 17.sp,
+                              ),
                             ),
                           ],
                         ),
@@ -188,7 +204,13 @@ class _ExpertBookingScreenState extends State<ExpertBookingScreen> {
                             //! Showing confirmation dialog before booking
                             _showBookingConfirmationDialog(context);
                           }
-                        : null,
+                        : () {
+                            CustomMessageNotifier.showSnackBar(
+                              context,
+                              "Fill Details First",
+                              onError: true,
+                            );
+                          },
                     child: Container(
                       height: 8.h,
                       width: double.infinity,
@@ -270,7 +292,7 @@ class _ExpertBookingScreenState extends State<ExpertBookingScreen> {
                 style: GoogleFonts.kodchasan(
                   color: isSelected ? Colors.white : Colors.black,
                   fontWeight: FontWeight.w700,
-                  fontSize: 18,
+                  fontSize: 17.sp,
                 ),
               ),
             ),
@@ -335,7 +357,7 @@ class _ExpertBookingScreenState extends State<ExpertBookingScreen> {
                     style: GoogleFonts.kodchasan(
                       color: isSelected ? Colors.white : Colors.black,
                       fontWeight: FontWeight.w700,
-                      fontSize: 18,
+                      fontSize: 17.sp,
                     ),
                   ),
                 ],
